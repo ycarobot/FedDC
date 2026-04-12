@@ -18,12 +18,16 @@ If you prefer generating the CIFAR-10C, CIFAR-100C and Tiny-ImageNetC by yoursel
 - scikit-image 0.17.2
 - opencv-python 4.8.0.74
 
+## Dataset download
+
+
 ## Run
 ## CIFAR-100C Experiments
 We consider hybrid distribution shifts (including label shifts and feature shifts) in our CIFAR-10C experiments.
 
 ```bash
 cd ./exp/cifar100/${shift}
+```
 
 ## Experiment
 
