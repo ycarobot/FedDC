@@ -9,13 +9,13 @@ from model import create_model, create_loss, create_metric, create_optimizer
 from .Base import BaseServer, BaseClient
 
 
-class FedAU_Init4Server(BaseServer):
+class FedAwiServer(BaseServer):
     """
     Server of FedAvg with enhanced weighting strategies and dynamic client participation
     """
 
     def __init__(self, train_datasets, test_datasets, args):
-        super(FedAU_Init4Server, self).__init__(train_datasets, test_datasets, args)
+        super(FedAwiServer, self).__init__(train_datasets, test_datasets, args)
 
         # 检查或设置超参数
         assert args.gm_opt == 'sgd'
