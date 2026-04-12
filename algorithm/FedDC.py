@@ -15,7 +15,7 @@ from .Base import BaseServer, BaseClient
 from .TTABase import TTABaseServer
 
 
-class ATPPALSEPTestServer(BaseServer):
+class FedDCServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
