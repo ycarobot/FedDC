@@ -20,13 +20,13 @@ from model import create_model, create_loss, create_metric, create_optimizer
 from .Base import BaseServer, BaseClient
 
 
-class FedAvgServer3(BaseServer):
+class FedAvgServer(BaseServer):
     """
     Server of FedAvg with enhanced participation mechanisms
     """
 
     def __init__(self, train_datasets, test_datasets, args):
-        super(FedAvgServer3, self).__init__(train_datasets, test_datasets, args)
+        super(FedAvgServer, self).__init__(train_datasets, test_datasets, args)
 
         # check or set hyperparameters
         assert args.gm_opt == 'sgd'
