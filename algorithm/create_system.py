@@ -1,6 +1,6 @@
 from .Base import BaseServer
-from .FedAvg import FedAvgServer
-from .FedAU_init4 import FedAU_Init4Server
+from .Fedavg_dy import FedAvgServer
+from .FedAwi import FedAwiServer
 
 # ======== Below are algorithms for submission ========
 
@@ -14,7 +14,7 @@ from .pasle6_1 import ATPTestPasle6_1Server
 from .pasle_only import ATPTestPasleOServer
 from .pasle_p import ATPPALSEPTestServer
 from .tsd5 import ATPTestTSD5Server
-from .Fedavg_dy3 import FedAvgServer3
+
 from .MEMO import MEMOServer
 from .program4 import ATPTestPROGRAM4Server
 
@@ -36,14 +36,12 @@ def create_system(train_datasets, test_datasets, args):
 
     if algorithm == 'central':
         server = BaseServer(train_datasets, test_datasets, args)
-    # elif algorithm == 'fedavg':
-    #     server = FedAvgServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'fedavg':
-        server = FedAvgServer3(train_datasets, test_datasets, args)
+        server = FedAvgServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'fedawi':
-        server = FedAU_Init4Server(train_datasets, test_datasets, args)
+        server = FedAwi(train_datasets, test_datasets, args)
 
     # ======== Below are algorithms for submission ========
 
