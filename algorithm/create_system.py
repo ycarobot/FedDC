@@ -10,13 +10,13 @@ from .ATP import ATPServer
 from .ATPTest import ATPTestServer
 from .BatchNorm import BatchNormServer
 from .Tent import TentServer
-from .pasle import PasleServer
-from .feddc_o import Feddc_oServer
-from .feddc import feddcServer
-from .tsd import TSDServer
+from .PASLE import PASLEServer
+from .FedDC_o import FedDC_oServer
+from .FedDC import FedDCServer
+from .TSD import TSDServer
 
 from .MEMO import MEMOServer
-from .program import PROGRAMServer
+from .PROGRAM import PROGRAMServer
 
 from .T3A import T3AServer
 from .SHOT import SHOTServer
@@ -50,13 +50,13 @@ def create_system(train_datasets, test_datasets, args):
         server = TSDServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'pasle':
-        server = PasleServer(train_datasets, test_datasets, args)
+        server = PASLEServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'feddc_o':
-        server = Feddc_oServer(train_datasets, test_datasets, args)
+        server = FedDC_oServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'feddc':
-        server = FeddcServer(train_datasets, test_datasets, args)
+        server = FedDCServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'atp':
         server = ATPServer(train_datasets, test_datasets, args)
