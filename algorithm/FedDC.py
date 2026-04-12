@@ -19,7 +19,7 @@ class FedDCServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
-        # 初始化PASLE参数
+        # 初始化参数
         self._init_pasle_args(args)
 
         self.train_clients = {cid: ATPTestClient(cid, datasets, args) for cid, datasets in train_datasets.items()}
@@ -49,25 +49,7 @@ class FedDCServer(BaseServer):
             return torch.ones(num_classes, device=args.device) * 0.5
 
     def _init_pasle_args(self, args):
-        """初始化PASLE相关参数"""
-        # 基本参数
-        # args.use_pasle = getattr(args, 'use_pasle', True)  # 是否启用PASLE
-        # args.pasle_thresh = getattr(args, 'pasle_thresh', 0.6)  # 初始阈值
-        # args.pasle_thresh_gap = getattr(args, 'pasle_thresh_gap', 0.1)  # 阈值下降幅度
-        # args.pasle_thresh_des = getattr(args, 'pasle_thresh_des', 0.001)  # 阈值衰减率
-        # args.pasle_temp = getattr(args, 'pasle_temp',0.1)  # 温度参数
-        # args.pasle_buffer_size = getattr(args, 'pasle_buffer_size', 5)  # 样本缓冲区大小
-        # self.samples_buffer = None  # 样本缓冲区
-        #
-        # # 新增：设置类别数（默认为10，以CIFAR-10为例）
-        # args.num_classes = getattr(args, 'num_classes', 100)  # 数据集类别数
-        #
-        # # 增强版PASLE_E相关参数
-        # args.use_pasle_e = getattr(args, 'use_pasle_e', False)  # 是否启用PASLE_E
-        # args.pasle_filter_k = getattr(args, 'pasle_filter_k', 100)  # 每个类筛选的样本数
-        # args.pasle_lambda = getattr(args, 'pasle_lambda', 0.3)
-        # # 客户端重置参数
-        # args.reset_pasle_per_client = getattr(args, 'reset_pasle_per_client', False)  # 是否为每个客户端重置PASLE参数
+        
 
     def load_adapt_lrs(self, args):
         path = args.load_adapt_path
@@ -296,34 +278,10 @@ class ATPTestClient(BaseClient):
         self.pasle_temp = args.pasle_temp
         self.pasle_buffer_size = args.pasle_buffer_size
         self.samples_buffer = None
-        #原始阈值缩放（放大）
-        # self.class_thresholds = self.class_thresholds / 0.9  # 放大为原来的1/0.7≈1.43倍
-        #
-        # # 限制阈值在0.1-0.9之间
-        # self.class_thresholds = torch.clamp(
-        #     self.class_thresholds,
-        #     min=0.1,  # 下限
-        #     max=0.9  # 上限
-        # )
 
-        # 初始化PASLE_E相关参数
-        # self.use_pasle_e = args.use_pasle_e
-        # self.pasle_filter_k = args.pasle_filter_k
-        # self.pasle_lambda = args.pasle_lambda
-        # self.num_classes = args.num_classes  # 从参数中获取类别数
-
-        # ---------------------- 新增：CDF映射所需参数 ----------------------
-        self.entropy_window = []  # 存储每个批次的平均熵值（历史数据）
-        self.window_size = 30  # 滑动窗口大小（可调整，建议20-50，平衡实时性与稳定性）
-        self.num_classes = args.num_classes  # 类别数（窗口数据不足时的 fallback 映射）
-
-        # # 如果使用PASLE_E，初始化原型相关参数
-        # if self.use_pasle_e:
-        #     self._init_prototype_params(args)
-        #     # 加载类别阈值先验知识（用于损失加权）
-
-
-
+        self.entropy_window = []  
+        self.window_size = 30  
+        self.num_classes = args.num_classes  
 
     def load_class_thresholds(self, args):
         """从.pkl文件加载类别阈值张量（用于损失加权）"""
@@ -372,25 +330,7 @@ class ATPTestClient(BaseClient):
         if args.use_pasle or args.use_pasle_e:
             loss_pasle = self._compute_pasle_loss(model, logits, X, args,unspv_loss_func)
 
-        # # 如果没有有效损失，直接返回
-        # if loss_ent == 0 and loss_pasle == 0:
-        #     return
-
-        # # 2. 计算Pareto优化权重
-        # model.zero_grad()
-        # grads_ent = []
-        # grads_pasle = []
-
-        # if args.wujiandu and args.use_pasle:
-        #
-        #     loss_ent.backward(retain_graph=True)
-        #     grads_ent = [p.grad.clone() for p in model.trainable_parameters()]
-        #     model.zero_grad()
-        #
-        # # if args.use_pasle:
-        #     loss_pasle.backward(retain_graph=True)
-        #     grads_pasle = [p.grad.clone() for p in model.trainable_parameters()]
-        #     model.zero_grad()
+        
 
         if args.wujiandu and args.use_pasle:
             # 计算无监督损失的梯度
@@ -408,33 +348,6 @@ class ATPTestClient(BaseClient):
                 model.zero_grad()
             else:
                 grads_pasle = [torch.zeros_like(p) for p in model.trainable_parameters()]
-
-        # # 计算无监督损失的 Fisher 信息
-        # if args.wujiandu and loss_ent != 0:
-        #     loss_ent.backward(retain_graph=True)
-        #     grads_ent = [p.grad.clone() for p in model.trainable_parameters()]
-        #     fisher_ent = [(g ** 2).sum() for g in grads_ent]
-        #     fisher_ent_sum = sum(fisher_ent)
-        #     model.zero_grad()
-        # else:
-        #     fisher_ent_sum = torch.tensor(1e-8, device=self.device)
-        #
-        # # 计算伪标签损失的 Fisher 信息
-        # if args.use_pasle and loss_pasle != 0:
-        #     loss_pasle.backward(retain_graph=True)
-        #     grads_pasle = [p.grad.clone() for p in model.trainable_parameters()]
-        #     fisher_pasle = [(g ** 2).sum() for g in grads_pasle]
-        #     fisher_pasle_sum = sum(fisher_pasle)
-        #     model.zero_grad()
-        # else:
-        #     fisher_pasle_sum = torch.tensor(1e-8, device=self.device)
-        #
-        # # 使用 Fisher 信息计算权重（归一化）
-        # total_fisher = fisher_ent_sum + fisher_pasle_sum
-        # alpha = fisher_ent_sum / total_fisher  # 无监督损失的权重
-        # beta = fisher_pasle_sum / total_fisher  # 伪标签损失的权重
-
-        # 4. 动态权重（冲突感知）
 
         if args.use_pasle and args.wujiandu:
             def compute_conflict(g1, g2):
@@ -458,41 +371,6 @@ class ATPTestClient(BaseClient):
         else:
             total_loss = loss_pasle + loss_ent
 
-
-        # 3. 动态调整权重（Pareto优化）
-        # if args.use_pasle and args.wujiandu:
-        #     alpha = 0.5  # 初始权重
-        #     cos_sim = 0.0
-        #     cos_sims = []
-        #     for g1, g2 in zip(grads_ent, grads_pasle):
-        #         g1_flat = g1.flatten()
-        #         g2_flat = g2.flatten()
-        #         if torch.norm(g1_flat) > 0 and torch.norm(g2_flat) > 0:
-        #             cos_sim += g1_flat.dot(g2_flat) / (torch.norm(g1_flat) * torch.norm(g2_flat))
-        #
-        #     # 如果梯度冲突（余弦相似度为负），调整权重
-        #     # if cos_sim < 0:
-        #     #     # 冲突时降低主导损失的权重（这里简化处理：固定比例调整）
-        #     #     #alpha = max(0.1, alpha - 0.2)  # 权重下限0.1
-        #     #     alpha = 1.0 / (1 + torch.exp(cos_sim))  # Sigmoid调整
-        #     # else:
-        #     #     # 一致时恢复均衡权重
-        #     #     alpha = 0.5
-        #
-        #     # cos_sims.append(cos_sim)
-        #     # avg_cos_sim = torch.mean(torch.stack(cos_sims))
-        #     # probs = F.softmax(logits, dim=1)
-        #     # entropy = -(probs * torch.log(probs + 1e-8)).sum(1).mean()
-        #     # alpha = torch.sigmoid(entropy).item()
-        #     # 4. 计算加权总损失
-        #     # with torch.no_grad():
-        #     #     prob = F.softmax(logits, dim=1)
-        #     #     uncertainty = 1 - prob.max(dim=1)[0].mean()  # [0,1]越高越不确定
-        #
-        #     # 不确定性高时加强伪标签损失权重
-        #     alpha = 0.8
-        #     total_loss = alpha * loss_ent + (1 - alpha) * loss_pasle
-
         # 5. 反向传播和参数更新
         if total_loss.requires_grad:
             total_loss.backward()
@@ -513,15 +391,10 @@ class ATPTestClient(BaseClient):
         model.eval()
         origin_sample_num = X[0].shape[0]
 
-
-
         if self.samples_buffer is not None:
             # 对多输入模型，需要分别合并每个输入
             X = [torch.cat([x, buf], dim=0) for x, buf in zip(X, self.samples_buffer)]
         # 确保X[0]是输入图像
-
-
-
 
         if args.jun:
 
@@ -690,25 +563,9 @@ class ATPTestClient(BaseClient):
         else:
             loss = torch.tensor(0.0, device=logits.device)
 
-       # # 如果使用PASLE_E，添加原型损失
-       #  if self.use_pasle_e and torch.sum(mask_partial) > 0:
-       #      proto_loss = self._compute_prototype_loss(model, X[0], logits, partial_labels, args)
-       #      #print(f"proto_loss: {proto_loss.item()}, weighted: {self.pasle_lambda * proto_loss.item()}")
-       #      loss = proto_loss
-       #  if self.use_pasle_e:
-       #      proto_loss = self._compute_prototype_loss(model, X[0], logits, partial_labels, args)
-       #      loss += proto_loss
-
 
         print("mask_hard:", mask_hard.sum().item())
         print("mask_partial:", mask_partial.sum().item())
-
-
-        # # 动态调整阈值
-        # if self.pasle_thresh > self.pasle_thresh_end:
-        #     #self.pasle_thresh -= self.pasle_thresh_des
-        #     self.pasle_thresh *= args.pasle_thresh_rate
-        # print(f"当前阈值={self.pasle_thresh:.3f}")
 
         if (self.class_thresholds > self.class_thresholds_end).all():
             #self.pasle_thresh -= self.pasle_thresh_des
@@ -825,15 +682,7 @@ class ATPTestClient(BaseClient):
         return self.supports, self.labels
 
     def local_eval(self, model, adapt_lrs, args, dataset='test'):
-        # 重置PASLE参数（可选，取决于是否需要为每个客户端重置）
-        # if args.reset_pasle_per_client:
-        #     self.pasle_thresh = args.pasle_thresh
-        #     self.samples_buffer = None
-        #
-        #     if self.use_pasle_e:
-        #         self.supports = None
-        #         self.labels = None
-        #         self.ent = None
+
 
         unspv_loss_func = create_loss('ent')
         spv_loss_func = create_loss('ce')
@@ -906,38 +755,6 @@ class ATPTestClient(BaseClient):
                 state = deepcopy(state_start)
 
                 #current_lrs = adapt_lrs * 0.9
-
-            # elif args.test == 'online_au':
-            #     state_now = model.state_dict()
-            #     # 1. 输入设备对齐（原有代码，不变）
-            #     X_device = [x.to(self.device) for x in X]
-            #     with torch.no_grad():
-            #         logits = model(*X_device)
-            #         probs = F.softmax(logits, dim=1)
-            #         current_entropy = -(probs * torch.log(probs + 1e-8)).sum(dim=1).mean().item()  # 当前批次熵值（转标量）
-            #
-            #     # 2. 维护熵值滑动窗口（新增核心逻辑）
-            #     self.entropy_window.append(current_entropy)  # 加入当前熵值
-            #     # if len(self.entropy_window) > self.window_size:  # 超过窗口大小则移除最早数据
-            #     #     self.entropy_window.pop(0)
-            #
-            #     # 3. 计算CDF（累积分布函数，当前熵值在历史中的分位数）
-            #     if len(self.entropy_window) >= 3:  # 窗口数据足够（避免初期统计偏差）
-            #         sorted_entropies = sorted(self.entropy_window)  # 历史熵值排序
-            #         # 统计"小于等于当前熵值"的历史数据个数 → 分位数 = 个数 / 总个数
-            #         cdf = sum(1 for ent in sorted_entropies if ent <= current_entropy) / len(sorted_entropies)
-            #     else:  # 窗口数据不足时，用理论最大值做fallback映射
-            #         max_theory_entropy = torch.log(torch.tensor(self.num_classes, dtype=torch.float32)).item()
-            #         cdf = min(1.0, current_entropy / max_theory_entropy)  # 避免超出[0,1]
-            #
-            #     # 4. CDF映射到 [0.1, 0.9]（新增核心逻辑）
-            #     alpha = 0.1 + 0.8 * cdf  # 线性缩放：CDF=0→0.1，CDF=1→0.9，中间线性过渡
-            #     alpha = max(0.1, min(0.9, alpha))  # 双重保险：避免极端值（如窗口初期的异常熵值）
-            #
-            #     # 5. 模型状态更新（原有代码，不变）
-            #     state_start = wau_state(state, state_now, alpha)
-            #     model.load_state_dict(state_start)
-            #     state = deepcopy(state_start)
 
             elif args.test == 'online_ha':
                 state_now = model.state_dict()
