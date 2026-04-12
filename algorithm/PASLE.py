@@ -26,7 +26,7 @@ def cc_loss(outputs, partialY, temp):
     return average_loss
 
 
-class PasleServer(BaseServer):
+class PASLEServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
