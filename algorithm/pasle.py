@@ -26,7 +26,7 @@ def cc_loss(outputs, partialY, temp):
     return average_loss
 
 
-class ATPTestPasle6_1Server(BaseServer):
+class PasleServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
