@@ -26,7 +26,7 @@ def softmax_kl_loss(input_logits, target_logits):
     return F.kl_div(input_log_softmax, target_softmax, reduction='none')
 
 
-class ATPTestTSD5Server(BaseServer):
+class TSDServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
