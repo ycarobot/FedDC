@@ -30,7 +30,7 @@ def cc_loss(outputs, partialY, temp):
     return average_loss
 
 
-class ATPTestPasleOServer(BaseServer):
+class FedDC_oServer(BaseServer):
     def __init__(self, train_datasets, test_datasets, args):
         BaseServer.__init__(self, train_datasets, test_datasets, args)
 
