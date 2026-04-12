@@ -10,13 +10,13 @@ from .ATP import ATPServer
 from .ATPTest import ATPTestServer
 from .BatchNorm import BatchNormServer
 from .Tent import TentServer
-from .pasle6_1 import ATPTestPasle6_1Server
-from .pasle_only import ATPTestPasleOServer
-from .pasle_p import ATPPALSEPTestServer
-from .tsd5 import ATPTestTSD5Server
+from .pasle import PasleServer
+from .feddc_o import Feddc_oServer
+from .feddc import feddcServer
+from .tsd import TSDServer
 
 from .MEMO import MEMOServer
-from .program4 import ATPTestPROGRAM4Server
+from .program import PROGRAMServer
 
 from .T3A import T3AServer
 from .SHOT import SHOTServer
@@ -25,11 +25,6 @@ from .EM import EMServer
 from .BBSE import BBSEServer
 
 from .Surgical import SurgicalServer
-
-
-
-# ======== Above are algorithms for submission ========
-
 
 def create_system(train_datasets, test_datasets, args):
     algorithm = args.algorithm
@@ -49,19 +44,19 @@ def create_system(train_datasets, test_datasets, args):
         server = TestServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'program':
-        server = ATPTestPROGRAM4Server(train_datasets, test_datasets, args)
+        server = PROGRAMServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'tsd':
-        server = ATPTestTSD5Server(train_datasets, test_datasets, args)
+        server = TSDServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'pasle':
-        server = ATPTestPasle6_1Server(train_datasets, test_datasets, args)
+        server = PasleServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'feddc_o':
-        server = ATPTestPasleOServer(train_datasets, test_datasets, args)
+        server = Feddc_oServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'feddc':
-        server = ATPPALSEPTestServer(train_datasets, test_datasets, args)
+        server = FeddcServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'atp':
         server = ATPServer(train_datasets, test_datasets, args)
