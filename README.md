@@ -110,7 +110,7 @@ python c_cifar100.py
 You can run most of the experiments in our paper by  
 shell: python main.py
 
-Moreover, we also prepare code for various datasets and model architectures. Please check the arguments function in the `main.py` file for more details.
+Moreover, we also prepare code for various datasets and model architectures. Please check the arguments function in the `option.py` file for more details.
 
 ## Acknowledgements
 This implementation is based on [ATP](https://github.com/baowenxuan/ATP) and [PASLE](https://github.com/palm-ml/PASLE).
