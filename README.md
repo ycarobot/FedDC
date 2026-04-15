@@ -87,6 +87,20 @@ cd ./exp/cifar100/${shift}
 ```
 This shell script will partition the CIFAR-100 dataset to 300 clients (240 source clients and 60 clients), and save the partition indices to `~/data/feddc/partition/cifar100/`. When there are corruptions (hybrid shift), we also cache the corrupted dataset to `~/data/feddc/cifar100` to save time.
 
+## Train Global Model with FedAwi
+Before running FedDC, we need to train a global model with source clients' training sets. We use FedAwi algorithm to train the global model.
+```
+./pretrain_fedawi_${model}.sh
+```
+Here `${model}` specifies the model architecture we use. We used resnet18 (ResNet-18) and vit (ViT-base/16) in our paper.
+
+Learn Adaptation Rates
+```
+./feddc_train_${model}.sh
+```
+Learn Class-aware Margin Thresholds
+
+
 ## Experiment
 
 You can run most of the experiments in our paper by  
