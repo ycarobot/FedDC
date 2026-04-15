@@ -74,7 +74,7 @@ data
 
 ## Run
 ## CIFAR-100C Experiments
-We consider hybrid distribution shifts (including label shifts and feature shifts) in our CIFAR-10C experiments.
+We consider hybrid distribution shifts (including label shifts and feature shifts) in our CIFAR-100C experiments.
 
 ```bash
 cd ./exp/cifar100/${shift}
