@@ -1,4 +1,4 @@
-## Disclaimer 免责声明
+## Disclaimer
 
 > ⚠️ **Note: This is an ongoing research work.**
 
