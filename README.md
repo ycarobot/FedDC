@@ -31,39 +31,36 @@ data
 │       
 └───dataset
 │   │   CIFAR100
-│       │  Art
-│       │  Clipart
-|       |  Product
-│       │  RealWorld
+│       │  test
+│       │  train
+|       |  meta
+│       │  file.txt
 │   │   Tiny-ImageNet
-│       │   ...
-│   │   OfficeCaltech10
-│       │   ...
-|   |   Office31
-|       |   ...
+│       │  test
+│       │  train
+│       │  val
+│   │   PACS
+│       │  art_painting
+│       │  cartoon
+│       │  photo
+│       │  sketch
+|   |   Stanford_Cars
+|       |  cars_train
+|       |  cars_test
+|       |  cars annos.mat
+|   |   Food-101
+|       |  images
+|       |  meta
+|   |   CarlaTTA
+|       |  clear  
+|       |  clear_fog_1200
+|       |  clear_rain_1200
+|       |  clear_night_1200
+|       |  clear_highway
+|       |  day_night_1200
+|       |  dynamic_1200
+|       |  town04_dynamic_1200
 
-ILOD/
-├── datasets/
-│   ├── bdd100k/
-│   │   ├── train/
-│   │   │   ├── img00001.jpg
-│   │   │   └── ...
-│   │   ├── val/
-│   │   │   ├── img00003.jpg
-│   │   │   └── ...
-│   │   ├── train_day.json
-│   │   ├── train_night.json
-│   │   └── val_night.json
-└── shift/
-    ├── train/
-    │   ├── folder1
-    │   └── ...
-    ├── val/
-    │   ├── folder1
-    │   └── ...
-    ├── train_day.json
-    ├── train_night.json
-    └── val_night.json
 ```
 
 ## Run
@@ -73,6 +70,13 @@ We consider hybrid distribution shifts (including label shifts and feature shift
 ```bash
 cd ./exp/cifar100/${shift}
 ```
+- where `${shift}` should be replaced by `hybrid` (hybrid shift).
+
+## Generate Dataset
+```
+./data_prepare.sh
+```
+
 
 ## Experiment
 
