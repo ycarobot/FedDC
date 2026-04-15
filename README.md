@@ -19,7 +19,28 @@ If you prefer generating the CIFAR-10C, CIFAR-100C and Tiny-ImageNetC by yoursel
 - opencv-python 4.8.0.74
 
 ## Dataset download
-
+ILOD/
+├── datasets/
+│   ├── bdd100k/
+│   │   ├── train/
+│   │   │   ├── img00001.jpg
+│   │   │   └── ...
+│   │   ├── val/
+│   │   │   ├── img00003.jpg
+│   │   │   └── ...
+│   │   ├── train_day.json
+│   │   ├── train_night.json
+│   │   └── val_night.json
+└── shift/
+    ├── train/
+    │   ├── folder1
+    │   └── ...
+    ├── val/
+    │   ├── folder1
+    │   └── ...
+    ├── train_day.json
+    ├── train_night.json
+    └── val_night.json
 
 ## Run
 ## CIFAR-100C Experiments
