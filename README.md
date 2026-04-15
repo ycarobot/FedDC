@@ -26,6 +26,15 @@ If you prefer generating the CIFAR-10C, CIFAR-100C and Tiny-ImageNetC by yoursel
 
 ## Install Datasets
 We need users to declare a `data` to store the dataset as well as the log of training procedure. The directory structure should be :
+
+Download the datasets used in our paper from the following links:
+
+- [CIFAR-100](https://flow/file_open?url=https%3A%2F%2Fwww.cs.toronto.edu%2F~kriz%2Fcifar.html&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [Tiny-ImageNet](https://flow/file_open?url=http%3A%2F%2Fcs231n.stanford.edu%2Ftiny-imagenet-200.zip&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [Food-101](https://flow/file_open?url=https%3A%2F%2Fdata.vision.ee.ethz.ch%2Fcvl%2Fdatasets_extra%2Ffood-101%2F&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [Stanford Cars](https://flow/file_open?url=https%3A%2F%2Ftensorflow.google.cn%2Fdatasets%2Fcatalog%2Fcars196&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [PACS](https://flow/file_open?url=https%3A%2F%2Fdomaingeneralization.github.io%2F%23data&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [CarlaTTA](https://flow/file_open?url=https%3A%2F%2Fgithub.com%2Fmariodoebler%2Ftest-time-adaptation&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
 ```
 data
 │       
@@ -76,7 +85,7 @@ cd ./exp/cifar100/${shift}
 ```
 ./data_prepare.sh
 ```
-
+This shell script will partition the CIFAR-100 dataset to 300 clients (240 source clients and 60 clients), and save the partition indices to `~/data/feddc/partition/cifar100/`. When there are corruptions (hybrid shift), we also cache the corrupted dataset to `~/data/feddc/cifar100` to save time.
 
 ## Experiment
 
