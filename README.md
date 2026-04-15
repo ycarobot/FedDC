@@ -24,7 +24,7 @@ If you prefer generating the CIFAR-10C, CIFAR-100C and Tiny-ImageNetC by yoursel
 - scikit-image 0.17.2
 - opencv-python 4.8.0.74
 
-### Install Datasets
+## Install Datasets
 We need users to declare a `data` to store the dataset as well as the log of training procedure. The directory structure should be :
 ```
 data
