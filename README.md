@@ -99,9 +99,13 @@ Learn Adaptation Rates
 ./feddc_train_${model}.sh
 ```
 Learn Class-aware Margin Thresholds
-
-
-## Experiment
+```
+python c_cifar100.py
+```
+## Fedderated Test-Time Adaptation with FedDC-batch and FedDC-online
+```
+./feddc_test_${model}.sh
+```
 
 You can run most of the experiments in our paper by  
 shell: python main.py
