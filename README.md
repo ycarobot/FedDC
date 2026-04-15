@@ -1,5 +1,8 @@
-# Towards Robust Federated Test-Time Adaptation: Dynamic Client Collaboration and Category-Aware Uncertainty
-These codes are directly related to the current manuscript submitted to The Visual Computer: Towards Robust Federated Test-Time Adaptation: Dynamic Client Collaboration and Category-Aware Uncertainty.
+## Disclaimer 免责声明
+
+> ⚠️ **Note: This is an ongoing research work.**
+
+This repository is the official implementation of the paper "FedDC: Federated Test-Time Adaptation with Dynamic Client Collaboration and Category-Aware Uncertainty", which has been submitted to *The Visual Computer*.
 
 ## Introduction
 - Federated test-time adaptation (FTTA) enables privacy-preserving model adaptation to unlabeled target data during inference, yet it struggles with dynamic source client availability and uncertain test samples under distribution shifts.
