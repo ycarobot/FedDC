@@ -9,7 +9,7 @@ This repository is the official implementation of the paper "Towards Robust Fede
   
 - We propose a novel FTTA framework, termed Federated test-time adaptation under Dynamic client collaboration and Category-aware uncertainty (FedDC), which effectively improves adaptation robustness and stability. During source training, clients are aggregated adaptively based on participation history to reduce bias. At test time, category-specific thresholds separate confident and uncertain samples, preserving prediction uncertainty to mitigate noise.
 
-## 🧠 Core Algorithm: FedDC Framework
+## 🧠 Core Algorithm: Federated learning, test-time adaptation
 
 This repository contains the official implementation of the FedDC framework, which is designed to address the challenge of federated test-time adaptation under dynamic client availability and distribution shifts. The core innovation lies in two collaboratively working modules:
 
