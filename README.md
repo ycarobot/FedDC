@@ -38,12 +38,12 @@ We need users to declare a `data` to store the dataset as well as the log of tra
 
 Download the datasets used in our paper from the following links:
 
-- [CIFAR-100](https://flow/file_open?url=https%3A%2F%2Fwww.cs.toronto.edu%2F~kriz%2Fcifar.html&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
-- [Tiny-ImageNet](https://flow/file_open?url=http%3A%2F%2Fcs231n.stanford.edu%2Ftiny-imagenet-200.zip&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
-- [Food-101](https://flow/file_open?url=https%3A%2F%2Fdata.vision.ee.ethz.ch%2Fcvl%2Fdatasets_extra%2Ffood-101%2F&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
-- [Stanford Cars](https://flow/file_open?url=https%3A%2F%2Ftensorflow.google.cn%2Fdatasets%2Fcatalog%2Fcars196&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
-- [PACS](https://flow/file_open?url=https%3A%2F%2Fdomaingeneralization.github.io%2F%23data&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
-- [CarlaTTA](https://flow/file_open?url=https%3A%2F%2Fgithub.com%2Fmariodoebler%2Ftest-time-adaptation&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+- [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html)
+- [Tiny-ImageNet](http://cs231n.stanford.edu/tiny-imagenet-200.zip)
+- [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
+- [Stanford Cars](https://tensorflow.google.cn/datasets/catalog/cars196)
+- [PACS](https://domaingeneralization.github.io/#data)
+- [CarlaTTA](https://github.com/mariodoebler/test-time-adaptation)
 ```
 data
 │       
