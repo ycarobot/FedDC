@@ -2,6 +2,8 @@
 
 Official implementation of **FedDCU**, a federated test-time adaptation framework for dynamic source-client participation and category-aware uncertainty.
 
+The manuscript is currently submitted to **The Visual Computer**.
+
 ## Reproduce paper results
 
 The reproducibility entry point is [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md). It records the release, seeds, hardware, expected runtime, checkpoints, expected outputs, and the mapping from manuscript tables/figures to scripts.
@@ -76,9 +78,8 @@ The paper environment used Python 3.8.5, PyTorch 1.11.0, torchvision 0.12.0, CUD
 @article{FedDCU2026,
   title   = {FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty},
   author  = {Li, Yongcai and Zhou, Yuexia and Liu, Xiangyu and Chen, Kai and Chen, Jinpeng and Yi, Chang'an},
-  journal = {The Visual Computer},
   year    = {2026},
-  note    = {Code release v0.1.0-repro}
+  note    = {Manuscript submitted to The Visual Computer; code release v0.1.0-repro}
 }
 ```
 
