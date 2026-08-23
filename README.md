@@ -1,17 +1,19 @@
+# FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty
+
 ## Disclaimer
 
 > ⚠️ **Note: This is an ongoing research work.**
 
-This repository is the official implementation of the paper "Towards Robust Federated Test-Time Adaptation: Dynamic Client Collaboration and Category-Aware Uncertainty", which has been submitted to *The Visual Computer*.
+This repository is the official implementation of the paper **"FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty"**.
 
 ## Introduction
 - Federated test-time adaptation (FTTA) enables privacy-preserving model adaptation to unlabeled target data during inference, yet it struggles with dynamic source client availability and uncertain test samples under distribution shifts.
   
-- We propose a novel FTTA framework, termed Federated test-time adaptation under Dynamic client collaboration and Category-aware uncertainty (FedDC), which effectively improves adaptation robustness and stability. During source training, clients are aggregated adaptively based on participation history to reduce bias. At test time, category-specific thresholds separate confident and uncertain samples, preserving prediction uncertainty to mitigate noise.
+- We propose a novel FTTA framework, termed **Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty (FedDCU)**, which effectively improves adaptation robustness and stability. During source training, clients are aggregated adaptively based on participation history to reduce bias. At test time, category-specific thresholds separate confident and uncertain samples, preserving prediction uncertainty to mitigate noise.
 
 ## 🧠 Core Algorithm: Federated learning, test-time adaptation
 
-This repository contains the official implementation of the FedDC framework, which is designed to address the challenge of federated test-time adaptation under dynamic client availability and distribution shifts. The core innovation lies in two collaboratively working modules:
+This repository contains the official implementation of the FedDCU framework, which is designed to address the challenge of federated test-time adaptation under dynamic client availability and distribution shifts. The core innovation lies in two collaboratively working modules:
 
 > **Adaptive Weightingand Initialization (AWI):** Adapts client aggregation weights based on historical participation during source training, mitigating bias from unstable client availability and heterogeneous data distributions.
 >
@@ -97,7 +99,7 @@ cd ./exp/cifar100/${shift}
 This shell script will partition the CIFAR-100 dataset to 300 clients (240 source clients and 60 clients), and save the partition indices to `~/data/feddc/partition/cifar100/`. When there are corruptions (hybrid shift), we also cache the corrupted dataset to `~/data/feddc/cifar100` to save time.
 
 ## Train Global Model with FedAwi
-Before running FedDC, we need to train a global model with source clients' training sets. We use FedAwi algorithm to train the global model.
+Before running FedDCU, we need to train a global model with source clients' training sets. We use the FedAWI algorithm to train the global model.
 ```
 ./pretrain_fedawi_${model}.sh
 ```
@@ -111,7 +113,7 @@ Learn Class-aware Margin Thresholds
 ```
 python c_cifar100.py
 ```
-## Fedderated Test-Time Adaptation with FedDC-batch and FedDC-online
+## Federated Test-Time Adaptation with FedDCU-batch and FedDCU-online
 ```
 ./feddc_test_${model}.sh
 ```
@@ -128,8 +130,8 @@ This implementation is based on [ATP](https://github.com/baowenxuan/ATP) and [PA
 ## 引用
 
 ```
-@article{FedDC,
-    title={Towards Robust Federated Test-Time Adaptation: Dynamic Client Collaboration and Category-Aware Uncertainty},
+@article{FedDCU,
+    title={FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty},
     author={Yi, Changan and et al.},
     journal={submitted to The Visual Computer},
     year={2026}
