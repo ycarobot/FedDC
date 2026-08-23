@@ -9,7 +9,7 @@ git rev-list -n 1 v0.1.0-repro
 git status --short
 ```
 
-The second command should print nothing. A Zenodo DOI will be added only after the GitHub release has been archived by Zenodo; the repository does not use a fabricated placeholder DOI.
+The second command should print nothing. The archived software release is identified by Zenodo DOI [`10.5281/zenodo.22072543`](https://doi.org/10.5281/zenodo.22072543).
 
 ## Determinism and random seeds
 

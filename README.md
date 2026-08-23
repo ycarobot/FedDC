@@ -1,5 +1,7 @@
 # FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22072543.svg)](https://doi.org/10.5281/zenodo.22072543)
+
 Official implementation of **FedDCU**, a federated test-time adaptation framework for dynamic source-client participation and category-aware uncertainty.
 
 The manuscript is currently submitted to **The Visual Computer**.
@@ -72,14 +74,16 @@ The paper environment used Python 3.8.5, PyTorch 1.11.0, torchvision 0.12.0, CUD
 - Reproducibility release: `v0.1.0-repro`
 - Exact release commit: resolve with `git rev-list -n 1 v0.1.0-repro`
 - Citation metadata: [`CITATION.cff`](CITATION.cff)
-- Zenodo DOI: pending repository-to-Zenodo archival; no DOI is claimed before Zenodo issues one.
+- Zenodo DOI: [`10.5281/zenodo.22072543`](https://doi.org/10.5281/zenodo.22072543)
 
 ```bibtex
-@article{FedDCU2026,
+@software{FedDCUSoftware2026,
   title   = {FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty},
   author  = {Li, Yongcai and Zhou, Yuexia and Liu, Xiangyu and Chen, Kai and Chen, Jinpeng and Yi, Chang'an},
   year    = {2026},
-  note    = {Manuscript submitted to The Visual Computer; code release v0.1.0-repro}
+  version = {v0.1.0-repro},
+  doi     = {10.5281/zenodo.22072543},
+  url     = {https://doi.org/10.5281/zenodo.22072543}
 }
 ```
 
