@@ -49,7 +49,8 @@ class FedDCServer(BaseServer):
             return torch.ones(num_classes, device=args.device) * 0.5
 
     def _init_pasle_args(self, args):
-        
+        # Client-specific SLE state is initialized by ATPTestClient.
+        pass
 
     def load_adapt_lrs(self, args):
         path = args.load_adapt_path

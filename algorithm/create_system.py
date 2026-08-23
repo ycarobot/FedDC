@@ -36,7 +36,7 @@ def create_system(train_datasets, test_datasets, args):
         server = FedAvgServer(train_datasets, test_datasets, args)
 
     elif algorithm == 'fedawi':
-        server = FedAwi(train_datasets, test_datasets, args)
+        server = FedAwiServer(train_datasets, test_datasets, args)
 
     # ======== Below are algorithms for submission ========
 

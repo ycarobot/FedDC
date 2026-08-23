@@ -1,8 +1,9 @@
-cd ../../../src || exit
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+cd "$repo_root" || exit
 
 gpu=2
 
-dataset='cifar1000'
+dataset='cifar100'
 num_clients=300
 partition='step_2_51'
 data_holdout=0.2
@@ -22,12 +23,12 @@ for seed in {0..0}; do
   for i in {0,1}; do
     {
       echo ${tests[i]}
-      load_model_path="../weights/cifar100/hybrid/pretrain_fedawi_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
-      load_adapt_path="../history/cifar100/hybrid/feddc_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
+      load_model_path="artifacts/cifar100/${model}/checkpoints/pretrain_fedawi_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
+      load_adapt_path="artifacts/cifar100/${model}/history/feddc_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
       load_adapt_idx=0
       load_adapt_round=-1
 
-      history_path="../history/cifar100/hybrid/feddc_test_${tests[i]}_pseed_${partition_seed}_seed_${seed}.pkl"
+      history_path="artifacts/cifar100/${model}/history/feddc_test_${tests[i]}_pseed_${partition_seed}_seed_${seed}.pkl"
 
       CUDA_VISIBLE_DEVICES=${gpu} python main.py \
         --dataset ${dataset} \

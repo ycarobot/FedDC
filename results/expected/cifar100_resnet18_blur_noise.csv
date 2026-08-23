@@ -1,0 +1,16 @@
+method,accuracy_mean_percent,accuracy_std_percent,protocol
+Source,26.7,0.3,source
+FedAWE,28.0,0.3,source
+BN,26.6,0.1,batch
+Tent,24.4,0.4,batch
+Surgical,27.1,0.2,batch
+MEMO,27.3,0.6,batch
+T3A,27.2,0.4,batch
+EM,27.4,0.6,batch
+TSD,26.8,0.3,batch
+PROGRAM,27.3,0.2,batch
+FedICON,31.9,0.3,batch
+FedDCU-batch,32.0,0.7,batch
+PASLE,27.8,0.3,online
+ATP,37.1,0.5,online
+FedDCU-online,39.3,0.2,online

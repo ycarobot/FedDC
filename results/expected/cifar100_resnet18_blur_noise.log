@@ -1,0 +1,10 @@
+experiment=cifar100_resnet18_blur_noise_random
+partition=step_2_51
+partition_seeds=0,1,2
+test_seeds=0,1,2
+metric=accuracy_percent
+source=FedDC_Main_Manuscript.tex:tab:cifar_full
+expected_source=26.7+/-0.3
+expected_feddcu_batch=32.0+/-0.7
+expected_feddcu_online=39.3+/-0.2
+note=Reference output; hardware/software differences may cause small deviations.

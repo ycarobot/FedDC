@@ -57,6 +57,7 @@ cover/
 
 # Django stuff:
 *.log
+!results/expected/*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -205,3 +206,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Generated experiment products (small reference outputs are kept in results/expected).
+artifacts/
+data/
+weights/
+history/
+*.pth
+*.pt

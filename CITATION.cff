@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use FedDCU, please cite the paper and this software release."
+title: "FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty"
+type: software
+version: "0.1.0-repro"
+date-released: 2026-08-24
+repository-code: "https://github.com/ycarobot/FedDCU"
+license: MIT
+authors:
+  - family-names: Li
+    given-names: Yongcai
+  - family-names: Zhou
+    given-names: Yuexia
+  - family-names: Liu
+    given-names: Xiangyu
+  - family-names: Chen
+    given-names: Kai
+  - family-names: Chen
+    given-names: Jinpeng
+  - family-names: Yi
+    given-names: "Chang'an"
+    email: yi.changan@fosu.edu.cn
+preferred-citation:
+  type: article
+  title: "FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty"
+  authors:
+    - family-names: Li
+      given-names: Yongcai
+    - family-names: Zhou
+      given-names: Yuexia
+    - family-names: Liu
+      given-names: Xiangyu
+    - family-names: Chen
+      given-names: Kai
+    - family-names: Chen
+      given-names: Jinpeng
+    - family-names: Yi
+      given-names: "Chang'an"
+  year: 2026

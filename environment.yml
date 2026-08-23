@@ -1,0 +1,11 @@
+name: feddcu
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.8.5
+  - cudatoolkit=10.2
+  - cudnn=7.6.5
+  - pip
+  - pip:
+      - -r requirements.txt

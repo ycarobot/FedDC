@@ -1,4 +1,5 @@
-cd ../../../src || exit
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+cd "$repo_root" || exit
 
 # CIFAR-100 hybrid shift experiments
 
@@ -11,7 +12,7 @@ corruption="ood" # train and test use different set of distortions
 
 partition_seed=0
 
-python ./cifar_prepare.py \
+python cifar_prepare.py \
   --dataset ${dataset} \
   --num_clients ${num_clients} \
   --partition ${partition} \

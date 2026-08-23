@@ -1,139 +1,91 @@
 # FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty
 
-## Disclaimer
+Official implementation of **FedDCU**, a federated test-time adaptation framework for dynamic source-client participation and category-aware uncertainty.
 
-> ⚠️ **Note: This is an ongoing research work.**
+## Reproduce paper results
 
-This repository is the official implementation of the paper **"FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty"**.
-
-## Introduction
-- Federated test-time adaptation (FTTA) enables privacy-preserving model adaptation to unlabeled target data during inference, yet it struggles with dynamic source client availability and uncertain test samples under distribution shifts.
-  
-- We propose a novel FTTA framework, termed **Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty (FedDCU)**, which effectively improves adaptation robustness and stability. During source training, clients are aggregated adaptively based on participation history to reduce bias. At test time, category-specific thresholds separate confident and uncertain samples, preserving prediction uncertainty to mitigate noise.
-
-## 🧠 Core Algorithm: Federated learning, test-time adaptation
-
-This repository contains the official implementation of the FedDCU framework, which is designed to address the challenge of federated test-time adaptation under dynamic client availability and distribution shifts. The core innovation lies in two collaboratively working modules:
-
-> **Adaptive Weightingand Initialization (AWI):** Adapts client aggregation weights based on historical participation during source training, mitigating bias from unstable client availability and heterogeneous data distributions.
->
-> **Selective Label Enhancement Based on Class-margin Thresholds (SLE) :** Applies category-specific uncertainty thresholds at test time to separate confident and uncertain samples, effectively suppressing noise from pseudo-labels and improving adaptation robustness.
-<img width="6409" height="3359" alt="框架" src="https://github.com/user-attachments/assets/ade1e236-2f71-4c56-ba16-e6bb40f69803" />
-
-## Requirements
-- python 3.8.5
-- cudatoolkit 10.2.89
-- cudnn 7.6.5
-- pytorch 1.11.0
-- torchvision 0.12.0
-- numpy 1.18.5
-- tqdm 4.65.0
-- matplotlib 3.7.1
-
-If you prefer generating the CIFAR-10C, CIFAR-100C and Tiny-ImageNetC by yourself, these packages may also be required:
-- wandb 0.16.0
-- scikit-image 0.17.2
-- opencv-python 4.8.0.74
-
-## Install Datasets
-We need users to declare a `data` to store the dataset as well as the log of training procedure. The directory structure should be :
-
-Download the datasets used in our paper from the following links:
-
-- [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html)
-- [Tiny-ImageNet](http://cs231n.stanford.edu/tiny-imagenet-200.zip)
-- [Food-101](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
-- [Stanford Cars](https://tensorflow.google.cn/datasets/catalog/cars196)
-- [PACS](https://domaingeneralization.github.io/#data)
-- [CarlaTTA](https://github.com/mariodoebler/test-time-adaptation)
-```
-data
-│       
-└───dataset
-│   │   CIFAR100
-│       │  test
-│       │  train
-|       |  meta
-│       │  file.txt
-│   │   Tiny-ImageNet
-│       │  test
-│       │  train
-│       │  val
-│   │   PACS
-│       │  art_painting
-│       │  cartoon
-│       │  photo
-│       │  sketch
-|   |   Stanford_Cars
-|       |  cars_train
-|       |  cars_test
-|       |  cars annos.mat
-|   |   Food-101
-|       |  images
-|       |  meta
-|   |   CarlaTTA
-|       |  clear  
-|       |  clear_fog_1200
-|       |  clear_rain_1200
-|       |  clear_night_1200
-|       |  clear_highway
-|       |  day_night_1200
-|       |  dynamic_1200
-|       |  town04_dynamic_1200
-
-```
-
-## Run
-## CIFAR-100C Experiments
-We consider hybrid distribution shifts (including label shifts and feature shifts) in our CIFAR-100C experiments.
+The reproducibility entry point is [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md). It records the release, seeds, hardware, expected runtime, checkpoints, expected outputs, and the mapping from manuscript tables/figures to scripts.
 
 ```bash
-cd ./exp/cifar100/${shift}
-```
-- where `${shift}` should be replaced by `hybrid` (hybrid shift).
-
-## Generate Dataset
-```
-./data_prepare.sh
-```
-This shell script will partition the CIFAR-100 dataset to 300 clients (240 source clients and 60 clients), and save the partition indices to `~/data/feddc/partition/cifar100/`. When there are corruptions (hybrid shift), we also cache the corrupted dataset to `~/data/feddc/cifar100` to save time.
-
-## Train Global Model with FedAwi
-Before running FedDCU, we need to train a global model with source clients' training sets. We use the FedAWI algorithm to train the global model.
-```
-./pretrain_fedawi_${model}.sh
-```
-Here `${model}` specifies the model architecture we use. We used resnet18 (ResNet-18) and vit (ViT-base/16) in our paper.
-
-Learn Adaptation Rates
-```
-./feddc_train_${model}.sh
-```
-Learn Class-aware Margin Thresholds
-```
-python c_cifar100.py
-```
-## Federated Test-Time Adaptation with FedDCU-batch and FedDCU-online
-```
-./feddc_test_${model}.sh
+git clone --branch v0.1.0-repro https://github.com/ycarobot/FedDCU.git
+cd FedDCU
+conda env create -f environment.yml
+conda activate feddcu
 ```
 
-You can run most of the experiments in our paper by  
-shell: python main.py
+Representative CIFAR-100/ResNet-18 hybrid-shift experiment:
 
-Moreover, we also prepare code for various datasets and model architectures. Please check the arguments function in the `option.py` file for more details.
-
-## Acknowledgements
-This implementation is based on [ATP](https://github.com/baowenxuan/ATP) and [PASLE](https://github.com/palm-ml/PASLE).
-
-
-## 引用
-
+```bash
+DATA_ROOT=/path/to/data GPU=0 bash scripts/reproduce_cifar100_r18_blur_noise.sh
 ```
-@article{FedDCU,
-    title={FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty},
-    author={Yi, Changan and et al.},
-    journal={submitted to The Visual Computer},
-    year={2026}
+
+One-command dataset/backbone entry points:
+
+```bash
+bash scripts/reproduce_paper.sh cifar100 resnet18
+bash scripts/reproduce_paper.sh cifar100 resnet50
+bash scripts/reproduce_paper.sh cifar100 vit
+bash scripts/reproduce_paper.sh tiny_imagenet resnet18
+bash scripts/reproduce_paper.sh tiny_imagenet resnet50
+bash scripts/reproduce_paper.sh pacs_aug resnet18
+bash scripts/reproduce_paper.sh pacs_aug resnet50
+bash scripts/reproduce_paper.sh stanfordcars resnet18
+bash scripts/reproduce_paper.sh food101 resnet18
+bash scripts/reproduce_paper.sh carlatta deeplabv2
+```
+
+The compact public bundle contains one representative FedAvg checkpoint and one expected-output example. The remaining commands reproduce results from training rather than requiring every large artifact to be stored in Git.
+
+## Method
+
+FedDCU contains three stages:
+
+1. **Source pre-training:** participation-aware adaptive weighting and initialization reduce bias caused by dynamic client availability.
+2. **Adaptation-rate training:** layer-wise adaptation rates are learned using unlabeled target-client data.
+3. **Test-time adaptation:** category-aware margin thresholds separate confident predictions from uncertain candidate labels and reduce pseudo-label error accumulation.
+
+## Datasets
+
+Official and fallback links, licenses, expected directory names, preprocessing, and partition settings are listed in [`DATASETS.md`](DATASETS.md). Raw datasets and generated corruptions are not redistributed.
+
+| Dataset | Official | Fallback |
+|---|---|---|
+| CIFAR-100 | [Toronto](https://www.cs.toronto.edu/~kriz/cifar.html) | [Hugging Face](https://huggingface.co/datasets/uoft-cs/cifar100) |
+| Tiny-ImageNet | [Stanford](http://cs231n.stanford.edu/tiny-imagenet-200.zip) | [Hugging Face](https://huggingface.co/datasets/galilai-group/tiny-imagenet) |
+| Food-101 | [ETH Zurich](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/) | [Hugging Face](https://huggingface.co/datasets/ethz/food101) |
+| Stanford Cars | [Cars196/TFDS](https://www.tensorflow.org/datasets/catalog/cars196) | [Hugging Face](https://huggingface.co/datasets/tanganke/stanford_cars) |
+| PACS | [DG benchmark](https://domaingeneralization.github.io/#data) | [mirror instructions](DATASETS.md#pacs) |
+| CarlaTTA | [Benchmark repository](https://github.com/mariodoebler/test-time-adaptation#segmentation) | [Google Drive archives linked by the benchmark](https://github.com/mariodoebler/test-time-adaptation#carlatta) |
+
+## Released artifact
+
+The representative checkpoint is [`checkpoints/cifar100_resnet18_fedavg_seed0.pkl`](checkpoints/cifar100_resnet18_fedavg_seed0.pkl). Its provenance, checksum, and compatible command are recorded in [`checkpoints/MANIFEST.md`](checkpoints/MANIFEST.md).
+
+## Environment
+
+The paper environment used Python 3.8.5, PyTorch 1.11.0, torchvision 0.12.0, CUDA 10.2, and cuDNN 7.6.5. See [`environment.yml`](environment.yml) and [`requirements.txt`](requirements.txt). Hardware and runtime notes are in [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md#hardware-and-runtime).
+
+## Version and citation
+
+- Reproducibility release: `v0.1.0-repro`
+- Exact release commit: resolve with `git rev-list -n 1 v0.1.0-repro`
+- Citation metadata: [`CITATION.cff`](CITATION.cff)
+- Zenodo DOI: pending repository-to-Zenodo archival; no DOI is claimed before Zenodo issues one.
+
+```bibtex
+@article{FedDCU2026,
+  title   = {FedDCU: Federated Test-Time Adaptation under Dynamic Client Collaboration and Category-Aware Uncertainty},
+  author  = {Li, Yongcai and Zhou, Yuexia and Liu, Xiangyu and Chen, Kai and Chen, Jinpeng and Yi, Chang'an},
+  journal = {The Visual Computer},
+  year    = {2026},
+  note    = {Code release v0.1.0-repro}
 }
 ```
+
+## Acknowledgements
+
+This implementation builds on [ATP](https://github.com/baowenxuan/ATP), [PASLE](https://github.com/palm-ml/PASLE), and the [test-time-adaptation benchmark](https://github.com/mariodoebler/test-time-adaptation).
+
+## License
+
+Released under the [MIT License](LICENSE). Dataset licenses remain with their respective owners.

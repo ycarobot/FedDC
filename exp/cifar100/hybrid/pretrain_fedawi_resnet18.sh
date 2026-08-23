@@ -1,4 +1,5 @@
-cd ../../../src || exit
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+cd "$repo_root" || exit
 
 gpu=2
 
@@ -26,8 +27,8 @@ pre_train_init=0.3
 
 for seed in {0..0}; do
   {
-    save_model_path="../weights/cifar100/hybrid/pretrain_${algorithm}_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
-    history_path="../history/cifar100/hybrid/pretrain_${algorithm}_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
+    save_model_path="artifacts/cifar100/${model}/checkpoints/pretrain_${algorithm}_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
+    history_path="artifacts/cifar100/${model}/history/pretrain_${algorithm}_${model}_pseed_${partition_seed}_seed_${seed}.pkl"
 
     CUDA_VISIBLE_DEVICES=${gpu} python main.py \
       --dataset ${dataset} \

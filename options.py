@@ -109,7 +109,7 @@ def args_parser():
     parser.add_argument('--test', type=str, default='batch',
                         help='online_avg | batch')
 
-    parser.add_argument('--load_adapt_path', type=str, default='/mnt/sda/PythonProject/LYC_Project/FTTA/ATP/ATP-master/src2/history/tiny_imagenet/hybrid/atp_blur_weather_random_pretrain_fedau4_0.25_176_f5_resnet18_pseed_0_seed_0.pkl',
+    parser.add_argument('--load_adapt_path', type=str, default='none',
                         help='path to load adaptation rates')
 
     parser.add_argument('--load_adapt_idx', type=int, default=0,
@@ -162,7 +162,7 @@ def args_parser():
 
     parser.add_argument('--history_path', type=str, default='none')
 
-    parser.add_argument('--load_model_path', type=str, default='/mnt/sda/PythonProject/LYC_Project/FTTA/ATP/ATP-master/src2/weights/tiny_imagenet/hybrid/blur_weather_pretrain_fedau4_0.25_176_f5_resnet18_pseed_0_seed_0.pkl')
+    parser.add_argument('--load_model_path', type=str, default='none')
 
     parser.add_argument('--save_model_path', type=str, default='none')
 
@@ -221,9 +221,9 @@ def args_parser():
                         help='beta used for shot')
     parser.add_argument('--pre_train_init', type=float, default=0.25,
                         help='beta used for shot')
-    parser.add_argument('--class_threshold_path', type=str, default='/mnt/sda/PythonProject/LYC_Project/FTTA/ATP/ATP-master/src/class_thresh3/tinyimagenet/blur_weather_au4_2_176_0.25_margins_resnet18_tinyimagenet.pkl',
+    parser.add_argument('--class_threshold_path', type=str, default='none',
                         help='beta used for shot')
-    parser.add_argument('--class_load_threshold_path', type=str, default='/mnt/sda/PythonProject/ZYF_projects/ATP-master/src/class_thresh/cifar100/hybrid/margin_thresholds.pt',
+    parser.add_argument('--class_load_threshold_path', type=str, default='none',
                         help='beta used for shot')
     parser.add_argument('--num_classes', type=int, default=200,
                         help='beta used for shot')
