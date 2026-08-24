@@ -2,7 +2,7 @@
 
 ## Frozen release
 
-Use release tag `v0.1.0-repro`. The exact immutable commit is obtained with:
+Use release tag `v0.1.0-repro`. Its exact immutable commit is `960656ab0fa2ba89720bdc39e463a09450040482`. Verify it with:
 
 ```bash
 git rev-list -n 1 v0.1.0-repro

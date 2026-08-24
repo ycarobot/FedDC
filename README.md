@@ -72,7 +72,7 @@ The paper environment used Python 3.8.5, PyTorch 1.11.0, torchvision 0.12.0, CUD
 ## Version and citation
 
 - Reproducibility release: `v0.1.0-repro`
-- Exact release commit: resolve with `git rev-list -n 1 v0.1.0-repro`
+- Exact release commit: `960656ab0fa2ba89720bdc39e463a09450040482`
 - Citation metadata: [`CITATION.cff`](CITATION.cff)
 - Zenodo DOI: [`10.5281/zenodo.22072543`](https://doi.org/10.5281/zenodo.22072543)
 
